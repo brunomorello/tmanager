@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface TaskService {
     public Task create(Task request);
     public Optional<Task> update(String id, Task request);
+    public Boolean delete(String id);
     public Optional<Task> getById(String id);
     public Page<Task> getAllByStatus(TaskStatus status, Pageable pageable);
 }

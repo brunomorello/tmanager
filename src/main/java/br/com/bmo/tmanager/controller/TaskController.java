@@ -20,6 +20,7 @@ public class TaskController {
     @Autowired
     private TaskService service;
 
+    @CrossOrigin(origins = {"*"})
     @GetMapping("{id}")
     ResponseEntity getById(@PathVariable String id) {
         Optional<Task> taskOptional = service.getById(id);
@@ -28,6 +29,7 @@ public class TaskController {
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
+    @CrossOrigin(origins = {"*"})
     @GetMapping
     ResponseEntity<Page<Task>> getAllByStatus(@PageableDefault Pageable pageable, @RequestParam(required = true) String status) {
         Page<Task> allByStatus = service.getAllByStatus(TaskStatus.valueOf(status), pageable);
@@ -36,11 +38,13 @@ public class TaskController {
         return new ResponseEntity<Page<Task>>(allByStatus, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = {"*"})
     @PostMapping
     ResponseEntity<Task> newTask(@RequestBody Task requestNewTask) {
         return new ResponseEntity<Task>(service.create(requestNewTask), HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = {"*"})
     @PutMapping("{id}")
     ResponseEntity update(@PathVariable String id, @RequestBody Task requestUpdateTask) {
         Optional<Task> optionalTask = service.update(id, requestUpdateTask);
@@ -49,5 +53,13 @@ public class TaskController {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
 
         return new ResponseEntity(optionalTask.get(), HttpStatus.NO_CONTENT);
+    }
+
+    @CrossOrigin(origins = {"*"})
+    @DeleteMapping("{id}")
+    ResponseEntity delete(@PathVariable String id) {
+        if (service.delete(id))
+            return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 }

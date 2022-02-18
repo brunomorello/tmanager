@@ -44,6 +44,18 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public Boolean delete(String id) {
+        Optional<Task> optionalTask = repository.findById(id);
+
+        if (optionalTask.isPresent()) {
+            repository.delete(optionalTask.get());
+            return Boolean.TRUE;
+        }
+
+        return Boolean.FALSE;
+    }
+
+    @Override
     public Optional<Task> getById(String id) {
         return repository.findById(id);
     }
