@@ -21,6 +21,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task create(Task request) {
         LocalDateTime nowDateTime = LocalDateTime.now();
+        request.setStatus(TaskStatus.TODO);
         request.setCreatedAt(nowDateTime);
         request.setUpdatedAt(nowDateTime);
         return repository.save(request);
