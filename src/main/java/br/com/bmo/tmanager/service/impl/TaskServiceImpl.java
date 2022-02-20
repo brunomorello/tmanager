@@ -36,6 +36,8 @@ public class TaskServiceImpl implements TaskService {
                 request.setShortDescription(optionalTask.get().getShortDescription());
             if (request.getDescription() == null)
                 request.setDescription(optionalTask.get().getDescription());
+            if (request.getDueDate() == null)
+                request.setDueDate(optionalTask.get().getDueDate());
 
             request.setCreatedAt(optionalTask.get().getCreatedAt());
             request.setUpdatedAt(LocalDateTime.now());
